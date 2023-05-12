@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { React, useState } from 'react';
+import { Route, Routes } from "react-router-dom";
 import './App.css'
+import countriesData from './countries.json'
+import Navbar from './components/Navbar';
+import CountriesList from './components/CountriesList';
+import CountryDetails from './components/CountryDetails';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [countries, setCountries] = useState(countriesData);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <div>
 
+      <Navbar />
+
+      <CountriesList countries={countriesData}  />
+      <div>
+        <Routes>
+        <Route path="/countries/:code" element={<CountryDetails countries={countries} />} />
+        </Routes>
+      </div>
+      
+
+      <CountryDetails />
+    </div>
+    
+
+
+);
+}
 export default App
